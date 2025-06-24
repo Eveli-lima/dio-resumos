@@ -41,18 +41,37 @@ else:
 
 '''PODEMOS CRIAR ESTRUTURAS CONSICIONAIS ANINHADAS, BAASTA ADICIONAR ESTRUTURAS if/elif/else DENTRO DO BLOCO DE CÓDIGO DE ESTRUTURAS if/elif/else.'''
 
-conta_normal = 300
-conta_universitária = 500
-saldo = conta_normal + conta_universitária
-saque = int(input("Qual o valor do saque?: "))
+conta_normal = False
+conta_universitária = False 
+conta_especial = True
 
+saldo = 2000
+saque = 1500
+cheque_especial = 600
+
+print("============banco===========")
 if conta_normal:
     if saldo >= saque:
         print("Saque realizado com sucesso!")
     elif saque <= (saldo + cheque_especial):
         print("Saque realizado com uso do cheque especial!")
+    else:
+        print("Não foi possível realizar o saque, saldo insuficiente!")
+
 elif conta_universitária:
     if saldo >= saque:
         print("Saque realizado com sucesso!")
     else:
         print("Saldo insuficiente!")
+
+elif conta_especial:
+    print("Conta especial selecionada!")
+else:
+    print("O sistema não reconhece sua conta, entre em contato com o banco.")
+
+# IF TERNÁRIO
+
+'''O IF TERNÁRIO PERMITE ESCREVER UMA CONDIÇÃO EM UMA UNICA LINHA. ELE É COMPOSTO POR TRÊS PARTES, A PRIMEIRA É O RETORNO CASO A EXPRESSÃO RETORNE VERDADEIRO, A SEGUNDA É A EXPRESSÃO LÓGICA E A TERCEIRA PARTE É O RETORNO CASO A EXPRESSÃO NÃO SEJA ATENDIDA.'''
+
+status = "sucesso" if saldo >= saque else "falha"
+print(f"{status} ao realizar o saque!")
