@@ -32,7 +32,7 @@ l1 = [1, 'Python', [40, 30, 20]]
 print(l1)
 print(id(l1))
 
-l2 = l1.copy() # vai retornar uma lista igual poré com uma instancia diferênte, ou seja, não é a mesma lista.
+l2 = l1.copy() # vai retornar uma lista igual porém com uma instancia diferênte, ou seja, não é a mesma lista.
 
 print(l2)
 print(id(l2))

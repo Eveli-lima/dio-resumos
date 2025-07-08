@@ -80,4 +80,3 @@ while True:
     except ValueError:
         print("Falha na operação! O valor digitado não é um número válido. \nDigite um número de 0 a 3.")   
 
-
