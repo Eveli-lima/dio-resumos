@@ -57,6 +57,7 @@ print(cores.count("azul"))
 print(cores.count("verde")) # serve para contar quantas vezes um objeto aparece dentro da lista
 
 # [].extend
+
 # é muito utilizado! 
 
 print()
@@ -85,6 +86,7 @@ print(linguagem.index("python"))
 # para pegar todas as ocorrencias de um objeto precisa fazer uma combinação com o .count
 
 # [].pop
+
 ''' a lista por padrão ja vem organizada como uma pilha. o primeiro elemento fica embaixo o segundo elemento em cima e assim por diante. o programa pega o elemento qie está em cima pois foi o último que foi adicionado, ou seja, que está em cima da pilha'''
 
 '''O .append adiciona um item no fim da lista. quando utilizamos o pop do jeito padrão ele tira o elemento do fim da lista'''
@@ -112,7 +114,7 @@ linguagens.remove("c")
 
 print(linguagens)
 
-# se eu tiver mais de uma ocorrencia de C ele cai tirar apenaas a primeira que ele encontear na ordem da lista. para remover todas as ocorrências pode fazer uma lógica de usar o .count para saber quantas ocorrências tem e depois remover.
+# se eu tiver mais de uma ocorrencia de C ele cai tirar apenas a primeira que ele encontrar na ordem da lista. para remover todas as ocorrências pode fazer uma lógica de usar o .count para saber quantas ocorrências tem e depois remover.
 
 # [].reverse
 

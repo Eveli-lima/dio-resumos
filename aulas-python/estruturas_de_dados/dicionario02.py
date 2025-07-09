@@ -21,14 +21,26 @@ print("Limpa tudo:", contatos)
 
 # {}.copy
 
+"""TIRA UMA CÓPIA DOS DICIONÁRIOS.
+PORÉM AO SER MODIFICADO ELE NÃO
+INTERFERE NO DICIONÁRIO ORIGINAL"""
+
 print()
 print(" .copy ".center(30, "="))
 
-print("tira uma cópia dos dicionários. \nPorém ao ser modificado ele não \ninterfere no dicionário original")
+contatos = {
+    "eveliazevedo@gmail.com": {'nome': 'Éveli', 'telefone': '(21) 9999-9999'}
+}
+
+copia = contatos.copy() #crio uma cópia
+copia["eveliazevedo@gmail.com"] = {"nome": "Vela"} #altero o valor relacionado com a chave
+
+print(contatos["eveliazevedo@gmail.com"])
+print(copia["eveliazevedo@gmail.com"]) # vc altera o dicionário sem alterar o dicionário original
 
 # {}.fromkeys
 
-# cria chaves e não adiciona nenum valor
+# cria chaves e não adiciona nenhum valor
 
 print()
 print(" .fromkeys ".center(30, "="))
@@ -38,6 +50,7 @@ print(a)
 
 b = dict.fromkeys(["nome", "telefone"], "vazio")
 print(b)
+#se for um dicionário existente coloca o nome do dicionário no lugar do dict
 
 # {}.get
 
@@ -57,7 +70,8 @@ print(contatos.get("eveliazevedo@gmail.com", {}))
 
 # {}.items
 
-# retorna uma lista de tuplas
+# retorna uma lista de tuplas, é mt útil quando eu fizer um comando for para iterar sobre os valores do dicionário
+
 print()
 print(" .items ".center(30, "="))
 
@@ -95,10 +109,22 @@ print(contatos.pop("eveliazevedo@gmail.com", {}))
 
 # {}.popitem
 
+"""VAI RETIRANDO OS ITENS NA SEQUENCIA"""
+
 print()
 print(" .popitem ".center(30, "="))
 
-print("vai retirando os itens na sequência")
+contatos = {
+    "eveliazevedo@gmail.com": {'nome': 'Éveli', 'telefone': '(21) 9999-9999'},
+    "fulana@gmail.com": {'nome': 'Fulana', 'telefone': '(21) 2222-2222'}
+}
+print(contatos)
+
+
+print()
+
+print(contatos.popitem())
+
 
 # {}.setdefault
  
@@ -120,23 +146,33 @@ contatos.setdefault("idade", 37)
 print(contatos)
 
 
-
-
-
-
-
-
-# {}.copy
+# {}.update
+"""PERMITE ATUALIZAR O NOSSO DICIONÁRIO COM OUTRO DICIONÁRIO"""
 
 print()
-print(" .copy ".center(30, "="))
+print(" .update ".center(30, "="))
 
-# {}.copy
+contatos = {
+    "eveliazevedo@gmail.com": {'nome': 'Éveli', 'telefone': '(21) 9999-9999'},
+}
+
+print(contatos)
+print()
+
+contatos.update({"eveliazevedo@gmail.com": {"nome": "Vela"}}) #se a chave existir ele atualiza as informações escrendo por cima 
+print(contatos)
+print()
+
+contatos.update({"fulana@gmail.com": {'nome': 'Fulana', 'telefone': '(21) 2222-2222'}}) #se a chave não existir ele vai incluir no dicionário
+print(contatos)
+
+
+# {}.values
 
 print()
-print(" .copy ".center(30, "="))
+print(" .values ".center(30, "="))
 
-
+print("Parei nos 13 minutos do video 'método da classe dict' 👈")
 
 
 

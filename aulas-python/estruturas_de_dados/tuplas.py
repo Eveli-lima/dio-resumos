@@ -5,7 +5,7 @@
 print()
 print(" tuplas ".center(30, "="))
 
-frutas = ("laranja", "pera", "uva",) # colocar uma vírgula no final da upla indica ao python que se trata de uma tupla e não uma ordem de precedencia.
+frutas = ("laranja", "pera", "uva",) # colocar uma vírgula no final da tupla indica ao python que se trata de uma tupla e não uma ordem de precedencia.
 print(frutas)
 
 letras = tuple("python")
@@ -67,9 +67,25 @@ print(tupla[0:3:2])
 print(tupla[::])
 print(tupla[::-1])
 
+# iterar
 
+print()
+print(" Iterar ".center(30, "="))
 
+"""A FORMA MAIS COMUM PARA PERCORRER OS DADOS DE UMA TUPLA É UTILIZANDO O COMANDO FOR."""
 
+carros = ("gol", "celta", "palio",)
 
+for carro in carros:
+    print(carro)
 
+# enumerate
+
+"""ÀS VEZES É NECESSÁRIO SABER QUAL O ÍNDICE DO  OBJETO DENTRO DO LAÇO FOR. PARA ISSO PODEMOS USAR A FUNÇÃO ENUMERATE."""
+
+print()
+print(" enumerate ".center(30, "="))
+
+for indice, carro in enumerate(carros):
+    print(f"{indice}: {carro}")
 

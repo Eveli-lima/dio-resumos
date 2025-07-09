@@ -13,7 +13,7 @@ print(set("abacaxi")) # não vai ficar em ordem
 
 print(set(("palio", "gol", "celta", "palio",)))
 
-# POSSO USAR PARÊNTESES OU CHAVES
+# POSSO USAR PARÊNTESES OU CHAVES, SE EU USAR PARENTESES TENHO QUE COLOCAR O SET ANTES.
 
 linguagem = {"python", "java", "python"}
 print(linguagem)

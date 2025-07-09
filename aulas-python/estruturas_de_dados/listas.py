@@ -55,7 +55,7 @@ print(frutas[-3])
 print()
 print(" matrizes ".center(30, "="))
 
-matriz = [
+matriz = [ 
     [1, "a", 2],
     ["b", 3, 4],
     [6, 5, "c"]
@@ -65,7 +65,10 @@ print(matriz[0][0]) # linha e coluna
 print(matriz[0][-1])
 print(matriz[-1][-1])
 
+#=========================================
+
 # FATIAMENTO
+
 '''ALÉM DE ACESSAR ELEMENTOS DIRETAMENTE, PODEMOS EXTRAIR UM CONJUNTO DE VALORES DE UMA SEQUÊNCIA. PARA ISSO BASTA PASSAR O ÍNDICE INICIAL E /OU FINAL PARA ACESSAR O CONJUNTO. PODEMOS AINDA INFORMAR QUANTAS POSIÇÕES O CURSOR DEVE "PULAR" NO ACESSO.'''
 
 print()
@@ -81,6 +84,8 @@ print(lista[0:3:2]) # inicial e final pulando de 2 em 2
 print(lista[::]) # do começo ao final. Esse é o caso da esseção pois não é infoemado o inicio nem o fim nem o passo.
 print(lista[::-1]) # do final ao começo.
 
+#==========================================
+
 #  ITERAR LISTAS
 
 '''a FORMA MAIS COMUM PARA PERCORRER OS DADOS DE UMA LISTA É UTILIZANDO O COMANDO FOR'''
@@ -92,6 +97,8 @@ carros = ["gol", "celta", "palio"]
 
 for carro in carros: # carro é uma variável criada que armazena os valores que foram verificados na lista 
     print(carro)
+
+#==========================================
 
 # FUNÇÃO ENUMERATE
 
@@ -105,6 +112,8 @@ carros = ["gol", "celta", "palio"]
 for indice, carro in enumerate(carros): # nesse caso ele me passa dois valores, um contador que começa em zero e o outro é o ítem da iteração
     print(f"{indice}: {carro}")
 
+#=========================================
+
 # COMPREENÇÃO DE LISTAS
 
 '''OFERECE UMA SINTAXE MAIS CURTA QUANDO VOCÊ DESEJA: CRIAR UMA NOVA LISTA COM BASE NOS VALORES DE UMA LISTA EXISTENTE (FILTRO) OU GERAR UMA NOVA LISTA APLICANDO ALGUMAS MODIFICAÇÕES NOS ELEMENTOS DE UMA LISTA EXISTENTE'''
@@ -116,17 +125,20 @@ print(" compreensão ".center(30, "="))
 numeros = [1, 30, 21, 2, 9, 65, 34]
 pares = []
 
-for numero in numeros:
+for numero in numeros: # esse é uma forma de fazer em bloco
     if numero % 2 == 0:
         pares.append(numero)
 
 print("bloco:", pares)
 
-pares = [numero for numero in numeros if numero % 2 == 0]
+pares = [numero for numero in numeros if numero % 2 == 0] # o método compreensão simplofica escrevendo em linhas ao invés de escrever em blocos.
 
 print("linha:", pares)
 
+#============================================
+
 # MODIFICANDO OS VALORES
+
 print()
 print(" modificando ".center(30, "="))
 
