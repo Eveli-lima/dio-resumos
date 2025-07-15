@@ -91,10 +91,3 @@ print()
 for chave, valor in contatos.items():
     print(chave, valor)
 
-
-
-
-
-
-
-

@@ -169,12 +169,40 @@ print(contatos)
 
 # {}.values
 
+"""O keys retorna todas as chaves do dicionário, mas temos o método que retona só os valores que é o caso do .values, é muito útil tbm quando vc não precisa saber as chaves, quando precisa iterar apenas sobre os valores"""
+
 print()
 print(" .values ".center(30, "="))
 
-print("Parei nos 13 minutos do video 'método da classe dict' 👈")
+contatos = {
+    "eveliazevedo@gmail.com": {'nome': 'Éveli', 'telefone': '(21) 9999-9999'},
+    "fulana@gmail.com": {'nome': 'Fulana', 'telefone': '(21) 2222-2222'},
+    "beutrana@gmail.com": {'nome': 'Beutrana', 'telefone': '(21) 3333-3333'},
+    "cicrana@gmail.com": {'nome': 'Cicrana', 'telefone': '(21) 5555-5555', "extra": {"a": 1}},
+}
 
+print(contatos.values())
 
+# {}.in
 
+"""É UMA FORMA ELEGANTE PARA SABER SE UMA CHAVE EXISTE OU NÃO NO DICIONÁRIO"""
 
+print()
+print(" .in ".center(30, "="))
 
+print("eveliazevedo@gmail.com" in contatos)
+print("patatipata@gmail.com" in contatos)
+print("idade" in contatos["eveliazevedo@gmail.com"])
+print("telefone" in contatos["cicrana@gmail.com"])
+
+# {}.del
+
+"""è uma outra forma de tirar um valor do dicionário ou toda a chave"""
+
+print()
+print(" .del ".center(30, "="))
+
+del contatos["eveliazevedo@gmail.com"]["telefone"]
+del contatos["cicrana@gmail.com"]
+
+print(contatos)
