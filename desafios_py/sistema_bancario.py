@@ -16,7 +16,7 @@ menu = f'''
    ======================================== 
 '''
 
-def deposito(saldo, historico):
+def deposito(saldo, historico, /):
     entrada = float(input("Digite o valor do Depósito: ").replace(',', '.'))
     if entrada > 0:
         saldo += entrada
@@ -25,7 +25,7 @@ def deposito(saldo, historico):
         print("Falha na operação! O valor deve ser maior que zero.")
     return saldo, historico
 
-def saque(saldo, limite, saques, LIMITE_SAQUE, historico):
+def saque(*, saldo, limite, saques, LIMITE_SAQUE, historico):
     saida = float(input("Digite o valor do saque: ").replace(',', '.'))
 
     excedeu_saldo = saida > saldo
@@ -51,7 +51,7 @@ def saque(saldo, limite, saques, LIMITE_SAQUE, historico):
 
     return saldo, saques, historico
 
-def extrato(saldo, historico):
+def extrato(saldo, /, *, historico):
     print("extrato".center(20, "=")) 
     print("Não foram realizadas movimentações." if not historico else historico)
     print(f"\nSaldo: R$ {saldo:.2f}") 
@@ -69,11 +69,11 @@ while True:
 
         # SAQUE
         elif opcao == 2:
-            saldo, saques, historico = saque(saldo, limite, saques, LIMITE_SAQUE, historico)
+            saldo, saques, historico = saque(saldo=saldo, limite=limite, saques=saques, LIMITE_SAQUE=LIMITE_SAQUE, historico=historico)
         
         # EXTRATO
         elif opcao == 3:
-            extrato(saldo, historico)
+            extrato(saldo, historico=historico)
            
 
         #SAIR
@@ -82,7 +82,7 @@ while True:
             msn = f''' 
     ========= Obrigada, Volte sempre! =========
 
-    Sistema Bancário v1.1 
+    Sistema Bancário v1.2 
     Desenvolvido por: Éveli Lima 
                 '''
             print(msn)
