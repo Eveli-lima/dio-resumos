@@ -1,95 +1,200 @@
-﻿
-saldo = 0
-limite = 500
-saques = 0
-LIMITE_SAQUE = 3
-historico = ""
+﻿from datetime import datetime
 
-menu = f'''
-    ============= Bem Vindo! ==============
-    
+def menu_principal():
+    print("""
+    ============= BEM VINDO! ==============
+
+    [1] ACESSAR CONTA
+    [2] CADASTRAR CLIENTE
+    [3] ABRIR CONTA CORRENTE
+    [0] SAIR
+
+    ========================================
+    """)
+
+def menu_conta_corrente(usuario, conta, saques_realizados, LIMITE_SAQUE_DIARIO):
+    agora = datetime.now()
+    data= agora.strftime("%d/%m/%Y")
+    hora = agora.strftime("%H:%M")
+
+    limite_restante = LIMITE_SAQUE_DIARIO - saques_realizados
+
+    print(f"""
+    ============= Conta de {usuario['nome']} ==============
+    Agência: {conta['agencia']}                           conta:{conta['numero']}
+
     [1] DEPÓSITO
     [2] SAQUE
     [3] EXTRATO
+    [4] LISTAR CONTAS
     [0] SAIR
 
-   ======================================== 
-'''
+    Limite de saques restante: {limite_restante}
+    ===============================================
+    DATA: {data}                    HORA: {hora}
+    """)
 
-def deposito(saldo, historico, /):
-    entrada = float(input("Digite o valor do Depósito: ").replace(',', '.'))
-    if entrada > 0:
-        saldo += entrada
-        historico += f"Depósito: R$ {entrada:.2f}\n"
+def buscar_usuario_por_cpf(cpf, usuarios):
+    for usuario in usuarios:
+        if usuario["cpf"] == cpf:
+            return usuario
+    return None
+
+def cadastrar_usuario(usuarios):
+    cpf = input("Digite o CPF (somente números): ")
+    usuario_existente = any(usuario["cpf"] == cpf for usuario in usuarios)
+
+    if usuario_existente:
+        print("Já existe usuário com esse CPF!")
+        return
+
+    nome = input("Digite o nome completo: ")
+    nascimento = input("Digite a data de nascimento (dd/mm/aaaa): ")
+    endereco = input("Digite o endereço (logradouro, número - bairro - cidade/UF): ")
+
+    usuario = {
+        "nome": nome,
+        "data_nascimento": nascimento,
+        "cpf": cpf,
+        "endereco": endereco
+    }
+
+    usuarios.append(usuario)
+    print("Usuário cadastrado com sucesso!")
+
+def criar_conta(usuarios, contas):
+    cpf = input("Digite o CPF do titular da conta: ")
+    usuario = buscar_usuario_por_cpf(cpf, usuarios)
+
+    if usuario:
+        conta = {
+            "agencia": "0001",
+            "numero": len(contas) + 1,
+            "usuario": cpf
+        }
+        contas.append(conta)
+        print("Conta criada com sucesso!")
     else:
-        print("Falha na operação! O valor deve ser maior que zero.")
-    return saldo, historico
+        print("Usuário não encontrado! Cadastre o cliente antes de criar a conta.")
 
-def saque(*, saldo, limite, saques, LIMITE_SAQUE, historico):
-    saida = float(input("Digite o valor do saque: ").replace(',', '.'))
+def listar_contas(cpf, contas):
+    contas_do_usuario = [conta for conta in contas if conta["usuario"] == cpf]
 
-    excedeu_saldo = saida > saldo
-    excedeu_limite = saida > limite
-    excedeu_saques = saques >= LIMITE_SAQUE
+    if not contas_do_usuario:
+        print("Esse usuário não possui contas cadastradas.")
+        return
 
-    if excedeu_saldo:
-        print("Operação falhou! Você não tem saldo suficiente.")
+    print("\n=== LISTA DE CONTAS DO USUÁRIO ===")
+    for conta in contas_do_usuario:
+        usuario = buscar_usuario_por_cpf(cpf, usuarios)
+        nome = usuario["nome"] if usuario else "Desconhecido"
+        print(f"Agência: {conta['agencia']} | Conta: {conta['numero']} | Titular: {nome} (CPF: {cpf})")
+    print("===================================")
 
-    elif excedeu_limite:
-        print("Operação falhou! O valor do saque excede o limite.")
 
-    elif excedeu_saques:
-        print("Operação falhou! Número máximo de saques excedido.")
+def acessar_conta(usuarios, contas):
+    cpf = input("Digite o CPF do titular da conta: ")
+    usuario = buscar_usuario_por_cpf(cpf, usuarios)
 
-    elif saida > 0:
-        saldo -= saida
-        historico += f"Saque: R$ {saida:.2f}\n"
-        saques += 1
+    if not usuario:
+        print("Usuário não encontrado!")
+        return
 
-    else:
-        print("Falha na operação! O valor é inválido")    
+    contas_do_usuario = [conta for conta in contas if conta["usuario"] == cpf]
 
-    return saldo, saques, historico
+    if not contas_do_usuario:
+        print("Nenhuma conta encontrada para esse usuário.")
+        return
 
-def extrato(saldo, /, *, historico):
-    print("extrato".center(20, "=")) 
-    print("Não foram realizadas movimentações." if not historico else historico)
-    print(f"\nSaldo: R$ {saldo:.2f}") 
-    print("=".center(20, "="))   
+    print("\n=== CONTAS ENCONTRADAS ===")
+    for i, conta in enumerate(contas_do_usuario, start=1):
+        print(f"[{i}] Agência: {conta['agencia']} | Conta: {conta['numero']}")
+    print("===========================")
 
- 
-while True:
+    if cpf not in saques_por_cpf:
+        saques_por_cpf[cpf] = 0
 
     try:
-        opcao = int(input(menu))
+        escolha = int(input("Digite o número da conta que deseja acessar: "))
+        conta = contas_do_usuario[escolha - 1]
+    except (ValueError, IndexError):
+        print("Opção inválida.")
+        return
 
-        # DEPÓSITO
-        if opcao == 1:
-            saldo, historico = deposito(saldo, historico)
+    saldo = 0
+    limite = 500
+    saques_realizados = saques_por_cpf[cpf]
+    LIMITE_SAQUE = 3
+    historico = []
 
-        # SAQUE
-        elif opcao == 2:
-            saldo, saques, historico = saque(saldo=saldo, limite=limite, saques=saques, LIMITE_SAQUE=LIMITE_SAQUE, historico=historico)
-        
-        # EXTRATO
-        elif opcao == 3:
-            extrato(saldo, historico=historico)
-           
+    while True:
+        menu_conta_corrente(usuario, conta, saques_realizados,LIMITE_SAQUE)
+        opcao = input()
 
-        #SAIR
-        elif opcao == 0:
+        if opcao == "1":
+            valor = float(input("Digite o valor do depósito: "))
+            if valor > 0:
+                saldo += valor
+                historico.append(f"Depósito: R$ {valor:.2f}")
+            else:
+                print("Valor inválido!")
 
-            msn = f''' 
-    ========= Obrigada, Volte sempre! =========
+        elif opcao == "2":
+            valor = float(input("Digite o valor do saque: "))
+            if valor <= 0:
+                print("Valor inválido!")
+            elif valor > saldo:
+                print("Saldo insuficiente!")
+            elif valor > limite:
+                print("Valor excede o limite por saque!")
+            elif saques_realizados >= LIMITE_SAQUE:
+                print("Número máximo de saques atingido!")
+            else:
+                saldo -= valor
+                historico.append(f"Saque: R$ {valor:.2f}")
+                saques_realizados += 1
+                saques_por_cpf[cpf] = saques_realizados
 
-    Sistema Bancário v1.2 
-    Desenvolvido por: Éveli Lima 
-                '''
-            print(msn)
+        elif opcao == "3":
+            print("\n======= EXTRATO =======")
+            print(f"Cliente: {usuario['nome']}")
+            print()
+            if not historico:
+                print("Nenhuma movimentação.")
+            else:
+                for operacao in historico:
+                    print(operacao)
+            print(f"\nSaldo: R$ {saldo:.2f}")
+            print("======================")
+
+        elif opcao == "4":
+            listar_contas(cpf, contas)
+
+        elif opcao == "0":
+            print("Saindo da conta...\n")
             break
-        else:
-            print("O valor digitado não é válido. \nDigite um número de 1 a 3. \nOu 0 para sair.")
-    
-    except ValueError:
-        print("Falha na operação! O valor digitado não é um número válido. \nDigite um número de 0 a 3.")   
 
+        else:
+            print("Opção inválida!")
+
+# Lista de dados
+usuarios = []
+contas = []
+saques_por_cpf = {}
+
+# Programa principal
+while True:
+    menu_principal()
+    opcao = input()
+
+    if opcao == "1":
+        acessar_conta(usuarios, contas)
+    elif opcao == "2":
+        cadastrar_usuario(usuarios)
+    elif opcao == "3":
+        criar_conta(usuarios, contas)
+    elif opcao == "0":
+        print("Encerrando o sistema... Até logo!")
+        break
+    else:
+        print("Opção inválida! Tente novamente.")
